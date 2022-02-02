@@ -5,7 +5,6 @@ import CheckoutProduct from "../src/components/CheckoutProduct";
 import { selectItems, selectTotal } from "../src/slices/cartSlice";
 import Currency from "react-currency-formatter";
 import { useSession } from "next-auth/react";
-import { groupBy } from "lodash";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 // const stripePromise = loadStripe(process.env.stripe_public_key); // Variable d'environnement définie par le fichier next.config.js, pour le front
