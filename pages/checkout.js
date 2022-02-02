@@ -6,38 +6,38 @@ import { selectItems, selectTotal } from "../src/slices/cartSlice";
 import Currency from "react-currency-formatter";
 import { useSession } from "next-auth/react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { loadStripe } from "@stripe/stripe-js" 
+import axios from "axios";
 
-// const stripePromise = loadStripe(process.env.stripe_public_key); // Variable d'environnement définie par le fichier next.config.js, pour le front
-
+const stripePromise = loadStripe(process.env.stripe_public_key); 
 function Checkout() {
     const items = useSelector(selectItems);
     const total = useSelector(selectTotal);
     const { data: session } = useSession(); 
     
 
-    // async function createCheckoutSession() {
-    //     const stripe = await stripePromise;
+    const createCheckoutSession = async () => {
+        const stripe = await stripePromise;
 
-    //     // Call the backend to create a checkout session...
-    //     const checkoutSession = await axios.post(
-    //         "/api/create-checkout-session",
-    //         {
-    //             items,
-    //             email: session.user.email,
-    //         }
-    //     );
+        // Call the backend to create a checkout session...
+        const checkoutSession = await axios.post("/api/create-checkout-session",
+            {
+                items: items,
+                email: session.user.email,
+            }
+        );
 
-    //     // After have created a session, redirect the user/customer to Stripe Checkout
-    //     const result = await stripe.redirectToCheckout({
-    //         sessionId: checkoutSession.data.id,
-    //     });
+        // After have created a session, redirect the user/customer to Stripe Checkout
+        const result = await stripe.redirectToCheckout({
+            sessionId: checkoutSession.data.id,
+        });
 
-    //     if (result.error) {
-    //         alert(result.error.message); // @todo : Improve that!
-    //     }
-    // }
+        if (result.error) {
+            alert(result.error.message); // @todo : Improve that!
+        }
+    }
 
-    const groupedItems = Object.values(groupBy(items, "id"));
+   
     return (
         <div className="bg-gray-100">
             <Header />
@@ -92,6 +92,7 @@ function Checkout() {
 
                         <button
                             role="link"
+                            onClick={createCheckoutSession}
                             disabled={!session}
                             className={`button mt-2 ${!session &&
                                 "from-gray-300 to-gray-500 border-gray-200 text-gray-300 cursor-not-allowed hover:from-gray-300"

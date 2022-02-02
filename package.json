@@ -8,8 +8,11 @@
   "dependencies": {
     "@heroicons/react": "^1.0.5",
     "@reduxjs/toolkit": "^1.7.1",
+    "@stripe/react-stripe-js": "^1.7.0",
+    "@stripe/stripe-js": "^1.22.0",
     "@tailwindcss/line-clamp": "^0.3.1",
     "@tailwindcss/typography": "^0.5.1",
+    "axios": "^0.25.0",
     "firebase": "^9.6.5",
     "next": "latest",
     "next-auth": "^4.1.2",
@@ -22,7 +25,8 @@
     "react-router-dom": "^6.2.1",
     "react-transition-group": "^4.4.2",
     "redux": "^4.1.2",
-    "redux-thunk": "^2.4.1"
+    "redux-thunk": "^2.4.1",
+    "stripe": "^8.201.0"
   },
   "devDependencies": {
     "@types/node": "17.0.4",
