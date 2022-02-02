@@ -13,7 +13,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 function Checkout() {
     const items = useSelector(selectItems);
     const total = useSelector(selectTotal);
-    const { data: session } = useSession();
+    const { data: session } = useSession(); //hello this is the new clone 
     
 
     // async function createCheckoutSession() {
