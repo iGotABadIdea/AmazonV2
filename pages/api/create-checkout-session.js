@@ -7,7 +7,7 @@ export default async (req,res) => {
       description: item.description,
       quantity: 1,
       price_data: {
-          currency: 'usd',
+          currency: 'inr',
           unit_amount: item.price*100,
           product_data: {
               name: item.title,
@@ -16,11 +16,11 @@ export default async (req,res) => {
       },
   }));
 
-  const session = await stripe.checkout.session.create({
+  const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       shipping_rates: ['shr_1KObrbSABJ4UuwuklUUjbsUI'],
       shipping_address_collection: {
-          allowed_countries: ["GB", "US", "CA", "IND"],
+          allowed_countries: ["GB", "US", "CA", "IN"],
       },
       line_items: transformedItems,
       mode: 'payment',
@@ -28,7 +28,7 @@ export default async (req,res) => {
       cancel_url: `${process.env.HOST}/checkout`,
       metadata: {
           email, 
-          images: JSON.stringyfy(items.map(item => item.image))
+          images: JSON.stringify(items.map(item => item.image))
       },
 
   });
