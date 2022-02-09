@@ -21,9 +21,12 @@ export const cartSlice = createSlice({
             }
             state.items = newCart
         },
+        clearCart: (state, action) => {
+            state.items = [];
+        },
     },
 });
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
 //Selector - this is how we have to pull info from the global store of slice
 export const selectItems = (state) => state.cart.items;
 export const selectTotal = (state) => state.cart.items.reduce((total, item) => total + item.price, 0);
